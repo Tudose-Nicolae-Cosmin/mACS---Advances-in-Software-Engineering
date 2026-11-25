@@ -1,0 +1,45 @@
+spring:
+  datasource:
+    url: jdbc:sqlite:./instakill.db
+    driver-class-name: org.sqlite.JDBC
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+server:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+    
+media:
+  base-path: media
+
+ntfy:
+  url: https://ntfy.sh
+  topic: instakill-tudose-48213
+
+llm:
+  url: ${LOCAL_LLM_URL:http://localhost:12345/v1/chat/completions}
+  model: google/gemma-3-270m
+  timeout-seconds: 60
+
+springdoc:
+  api-docs:
+    path: /api/v3/api-docs
+  swagger-ui:
+    path: /api/swagger
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+instakill:
+  jwt:
+    secret: change-me-change-me-change-me-change-me-change-me-secret-key-1234
+    issuer: instakill
+    ttl-minutes: 120
+logging:
+  level:
+    org.hibernate.SQL: warn
